@@ -135,16 +135,13 @@ class TopicCreateView(LoginRequiredMixin, generic.CreateView):
     model = Topic
     form_class = TopicForm
     template_name = 'topics_form.html'
+    success_url = '/blog/topics/'
 
     def test_func(self):
         return self.request.user.is_superuser
 
-    def get_success_url(self):
-        return reverse('topic', kwargs={'pk': self.kwargs['pk']})
 
-    def form_valid(self, form):
-        form.instance.project = Project.objects.get(pk=self.kwargs['pk'])
-        return super().form_valid(form)
+
 
 
 class TopicUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
@@ -158,13 +155,11 @@ class TopicUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateVie
     def get_success_url(self):
         return reverse('topic', kwargs={'pk': self.kwargs['pk']})
 
-    def form_valid(self, form):
-        form.instance.project = Project.objects.get(pk=self.kwargs['pk'])
-        return super().form_valid(form)
 
 
 class TopicDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
     model = Topic
+    success_url = '/blog/topics/'
     template_name = 'topics_delete.html'
 
     def test_func(self):
@@ -173,38 +168,45 @@ class TopicDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteVie
 
 class SubTopicCreateView(LoginRequiredMixin, generic.CreateView):
     model = SubTopic
-    success_url = ''
-    template_name = ''
+    template_name = 'subtopics_form.html'
     form_class = SubtopicForm
 
+    def test_func(self):
+        return self.request.user.is_superuser
+
+    def get_success_url(self):
+        return reverse('topic', kwargs={'pk': self.kwargs['topic_id']})
+
     def form_valid(self, form):
-        form.instance.reader = self.request.user
+        form.instance.topic = Topic.objects.get(pk=self.kwargs['topic_id'])
         return super().form_valid(form)
 
 
 class SubTopicUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
     model = SubTopic
-    success_url = ''
-    template_name = ''
+    template_name = 'subtopics_form.html'
     form_class = SubtopicForm
 
-    def form_valid(self, form):
-        form.instance.reader = self.request.user
-        return super().form_valid(form)
-
     def test_func(self):
-        instance = self.get_object()
-        return instance.reader == self.request.user
+        return self.request.user.is_superuser
+
+    def get_success_url(self):
+        return reverse('topic', kwargs={'pk': self.kwargs['pk']})
+
+    def form_valid(self, form):
+        form.instance.subtopic = SubTopic.objects.get(pk=self.kwargs['pk'])
+        return super().form_valid(form)
 
 
 class SubTopicDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
     model = SubTopic
-    success_url = ''
-    template_name = ''
+    template_name = 'subtopics_delete.html'
 
     def test_func(self):
-        instance = self.get_object()
-        return instance.reader == self.request.user
+        return self.request.user.is_superuser
+
+    def get_success_url(self):
+        return reverse('subtopic', kwargs={'pk': self.kwargs['pk']})
 
 
 class ProjectCreateView(LoginRequiredMixin, UserPassesTestMixin, generic.CreateView):
