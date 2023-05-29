@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block "title" %} Subtopic {% endblock %}
+
+{% block "content" %}
+<h1>{{ subtopic }}</h1>
+<div>
+    <span>
+        <p>{{ subtopic.summary }}</p>
+    </span>
+</div>
+{% endblock %}

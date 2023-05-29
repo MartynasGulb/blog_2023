@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block "title" %} Projects {% endblock %}
+
+{% block "content" %}
+<h1>Project list</h1></br>
+<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'project_new' %}">New project</a>
+{% for project in projects %}
+<a href="{% url 'project' project.id  %}">
+<p>{{ project }}</p>
+    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'projects_update' project.id  %}">Update</a>
+    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'projects_delete' project.id   %}">Delete</a>
+</a>
+
+<hr>
+{% endfor%}
+<div class = 'container'>
+    {% if projects.has_other_pages %}
+        <ul class="pagination pagination-sm justify-content-center">
+            {% for i in projects.paginator.page_range %}
+                {% if projects.number == i %}
+                    <li class="page-item active">
+                        <a class="page-link">{{ i }}</a>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+{% endblock %}

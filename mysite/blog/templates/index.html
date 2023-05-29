@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block "title" %} Home {% endblock %}
+
+{% block "content" %}
+ <h3>My personal blog</h3>
+  <p>Hello World!</p>
+  <p>Right now:</p>
+  <ul>
+    <li><strong>Projects done:</strong> {{ num_projects }}</li>
+    <li><strong>Topics:</strong> {{ num_topics }}</li>
+    <li><strong>Sub Topics:</strong> {{ num_subtopics }}</li>
+  </ul>
+{% endblock %}

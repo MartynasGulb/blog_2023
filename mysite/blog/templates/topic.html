@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block "title" %} Topic {% endblock %}
+
+{% block "content" %}
+<h1>{{ topic }}</h1>
+<div>
+    <span>
+        <p>{{ topic.about }}</p>
+    </span>
+</div>
+{% for subtopic in topic.subtopics.all %}
+<ul>
+    <li><a href="{% url 'subtopic' subtopic.pk %}">{{ subtopic.sub_topic_name}}</a> </li>
+</ul>
+{% endfor %}
+<div>
+    <p><strong>Projects related to this topic :</strong></p>
+    {% for project in topic.project.all %}
+    <ul>
+        <li><a href="{% url 'project' project.id %}">{{ project.title }}</a></li>
+    </ul>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block "title" %}Topics{% endblock%}
+
+{% block "content" %}
+{% load static %}
+<h1>Topic list</h1></br>
+{% for topic in topics %}
+<a href="{% url 'topic' topic.id %} "><p>{{ topic }}</p></a>
+<hr>
+{% endfor%}
+
+
+<div class="container">
+    {% if is_paginated %}
+        <ul class="pagination pagination-si justify-content-center">
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+
+
+{% endblock%}
