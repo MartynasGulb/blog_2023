@@ -11,9 +11,9 @@
 </div>
 {% for subtopic in topic.subtopics.all %}
 <ul>
-    <li><a href="{% url 'subtopic' subtopic.id %}">{{ subtopic.sub_topic_name}}</a>
-    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'subtopic_update' subtopic.id  %}">Up</a>
-    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'subtopic_delete' subtopic.id   %}">X</a>
+    <li><a href="{% url 'subtopic' topic.pk subtopic.id %}">{{ subtopic.sub_topic_name}}</a>
+    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'subtopic_update' topic.pk subtopic.id  %}">Up</a>
+    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'subtopic_delete' topic.pk subtopic.id   %}">X</a>
     </li>
 </ul>
 {% endfor %}

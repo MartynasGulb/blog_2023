@@ -141,20 +141,14 @@ class TopicCreateView(LoginRequiredMixin, generic.CreateView):
         return self.request.user.is_superuser
 
 
-
-
-
 class TopicUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
     model = Topic
     template_name = 'topics_form.html'
     form_class = TopicForm
+    success_url = '/blog/topics/'
 
     def test_func(self):
         return self.request.user.is_superuser
-
-    def get_success_url(self):
-        return reverse('topic', kwargs={'pk': self.kwargs['pk']})
-
 
 
 class TopicDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
@@ -191,7 +185,7 @@ class SubTopicUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.Update
         return self.request.user.is_superuser
 
     def get_success_url(self):
-        return reverse('topic', kwargs={'pk': self.kwargs['pk']})
+        return reverse('topic', kwargs={'pk': self.kwargs['topic_id']})
 
     def form_valid(self, form):
         form.instance.subtopic = SubTopic.objects.get(pk=self.kwargs['pk'])
@@ -213,13 +207,7 @@ class ProjectCreateView(LoginRequiredMixin, UserPassesTestMixin, generic.CreateV
     model = Project
     template_name = 'projects_form.html'
     form_class = ProjectForm
-
-    def form_valid(self, form):
-        form.instance.project = Project.objects.get(pk=self.kwargs['pk'])
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse('project', kwargs={'pk': self.kwargs['pk']})
+    success_url = '/blog/projects/'
 
     def test_func(self):
         return self.request.user.is_superuser
@@ -229,6 +217,7 @@ class ProjectUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateV
     model = Project
     template_name = 'projects_form.html'
     form_class = ProjectForm
+    success_url = '/blog/projects/'
 
     def form_valid(self, form):
         form.instance.project = Project.objects.get(pk=self.kwargs['pk'])
@@ -236,9 +225,6 @@ class ProjectUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateV
 
     def test_func(self):
         return self.request.user.is_superuser
-
-    def get_success_url(self):
-        return reverse('project', kwargs={'project_id': self.kwargs['pk']})
 
 
 class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
