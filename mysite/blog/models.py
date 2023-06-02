@@ -5,25 +5,6 @@ from django.contrib.auth.models import User
 from tinymce.models import HTMLField
 
 
-# class TopicInstance(models.Model):
-#     topic_name = models.CharField('Name of the topic', max_length=200, help_text='Įveskite paskaitos tema (pvz. )')
-#     material = models.CharField('Material', max_length=2000)
-#     examples = models.CharField('examples', max_length=2000)
-#
-#     def __str__(self):
-#         return self.topic_name
-#
-
-# class Topic(models.Model):
-#     name = models.CharField('Name', max_length=200)
-#     summary = models.TextField(verbose_name="Aprašymas", max_length=2000)
-#     topic_instance = models.ForeignKey(to='TopicInstance', verbose_name='Topic', on_delete=models.SET_NULL, null=True,
-#                                        blank=True)
-#
-#     def __str__(self):
-#         return self.name
-
-
 class Topic(models.Model):
     topic_name = models.CharField('Topic', max_length=200, blank=True)
     about = models.TextField('About', max_length=2000, blank=True)
@@ -80,7 +61,7 @@ class Profile(models.Model):
     photo = models.ImageField(verbose_name='Photo', upload_to='profile_pics', default='profile_pics/default.png')
 
     def __str__(self):
-        return f'{self.user.username} profilis'
+        return f'{self.user.username} profile'
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         super().save(force_insert, force_update, using, update_fields)

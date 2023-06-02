@@ -23,4 +23,3 @@ urlpatterns = [
     path("topics/<int:topic_id>/subtopics/<int:pk>/update", views.SubTopicUpdateView.as_view(), name="subtopic_update"),
     path("topics/<int:topic_id>/subtopics/<int:pk>/delete", views.SubTopicDeleteView.as_view(), name="subtopic_delete"),
 ]
-

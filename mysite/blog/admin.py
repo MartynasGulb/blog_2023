@@ -17,3 +17,4 @@ class ProjectAdmin(admin.ModelAdmin):
 admin.site.register(models.SubTopic, SubTopicAdmin)
 admin.site.register(models.Topic)
 admin.site.register(models.Project, ProjectAdmin)
+admin.site.register(models.Profile)

@@ -3,15 +3,15 @@ from .models import Project, Topic, SubTopic
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.views import generic
-from django.contrib.auth.forms import User
-from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserUpdateForm, ProfileUpdateForm, ProjectForm, TopicForm, SubtopicForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import FormMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
 
+
+# from django.contrib.auth.forms import User
+# from django.views.decorators.csrf import csrf_protect
 
 def index(request):
     num_projects = Project.objects.filter(status__exact='f').count()
@@ -83,31 +83,31 @@ class SubTopicDetailView(LoginRequiredMixin, generic.DetailView):
     template_name = 'subtopic.html'
 
 
-@csrf_protect
-def register(request):
-    if request.method == "POST":
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['password']
-        password2 = request.POST['password2']
-        if password == password2:
-            if User.objects.filter(username=username).exists():
-                messages.error(request, f'Vartotojo vardas {username} uzimtas')
-                return redirect('register')
-            else:
-                if User.objects.filter(email=email).exists():
-                    messages.error(request, f'Toks emeilas {email} uzimtas')
-                    return redirect('register')
-                else:
-                    User.objects.create_user(username=username, email=email, password=password)
-                    messages.info(request, f'Vartotojas {username} uzregistruotas !')
-                    return redirect('login')
-        else:
-            messages.error(request, 'Slaptazodziai nesutampa')
-            return redirect('register')
-
-    else:
-        return render(request, 'registration/register.html')
+# @csrf_protect
+# def register(request):
+#     if request.method == "POST":
+#         username = request.POST['username']
+#         email = request.POST['email']
+#         password = request.POST['password']
+#         password2 = request.POST['password2']
+#         if password == password2:
+#             if User.objects.filter(username=username).exists():
+#                 messages.error(request, f'Vartotojo vardas {username} uzimtas')
+#                 return redirect('register')
+#             else:
+#                 if User.objects.filter(email=email).exists():
+#                     messages.error(request, f'Toks emeilas {email} uzimtas')
+#                     return redirect('register')
+#                 else:
+#                     User.objects.create_user(username=username, email=email, password=password)
+#                     messages.info(request, f'Vartotojas {username} uzregistruotas !')
+#                     return redirect('login')
+#         else:
+#             messages.error(request, 'Slaptazodziai nesutampa')
+#             return redirect('register')
+#
+#     else:
+#         return render(request, 'registration/register.html')
 
 
 @login_required
