@@ -36,7 +36,7 @@ class Project(models.Model):
 
     CREATED_BY = (
         ('c', 'CodeAcademy'),
-        ('m', 'ME'),
+        ('m', 'Me'),
         ('ou', 'Outsourced'),
     )
 
@@ -47,7 +47,7 @@ class Project(models.Model):
     )
     by = models.CharField(verbose_name='Idea by', max_length=2, choices=CREATED_BY, blank=True)
     by_who = models.URLField(verbose_name='source', blank=True)
-    status = models.CharField(verbose_name='State', max_length=2, choices=PROJECT_STATUS, blank=True)
+    status = models.CharField(verbose_name='State', max_length=2, choices=PROJECT_STATUS, blank=True, default='i')
 
     def __str__(self):
         return self.title

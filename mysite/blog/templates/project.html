@@ -3,9 +3,18 @@
 {% block "title" %} Project {% endblock %}
 
 {% block "content" %}
+
 <h1>Project</h1>
 <ul>
     <li><strong> Title: </strong> {{ project.title}}</li>
+    {% if project.started %}
+    <li><strong> Started: </strong> {{ project.started}}</li>
+    {% endif %}
+    {% if project.finished %}
+    <li><strong> Finished: </strong> {{ project.finished}}</li>
+    {% endif %}
+    <li><strong> Idea by: </strong> {{ project.get_by_display }}</li>
+    <li><strong> Project status: </strong> {{ project.get_status_display }}</li>
 
 </ul>
 <p>{{project.short_summary | safe}}</p>

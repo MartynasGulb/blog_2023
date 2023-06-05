@@ -47,12 +47,28 @@ def project_view(request, project_id):
 
 def search(request):
     query = request.GET.get('query')
-    search_results = Topic.objects.filter(
-        Q(topic_name__icontains=query) | Q(about__icontains=query) | Q(project__title__icontains=query) | Q(
-            project__short_summary__icontains=query) | Q(project__started__icontains=query) | Q(
-            project__finished__icontains=query) | Q(project__by__icontains=query) | Q(project__status__icontains=query))
+    topic_results = Topic.objects.filter(
+        Q(topic_name__icontains=query) |
+        Q(about__icontains=query)
+     )
+    subtopic_results = SubTopic.objects.filter(
+        Q(sub_topic_name__icontains=query) |
+        Q(summary__icontains=query)
+    )
+    project_results = Project.objects.filter(
+        Q(title__icontains=query) |
+        Q(short_summary__icontains=query) |
+        Q(started__icontains=query) |
+        Q(finished__icontains=query) |
+        Q(description__icontains=query) |
+        Q(by__icontains=query) |
+        Q(by_who__icontains=query) |
+        Q(status__iexact=query)
+    )
     context = {
-        'topic': search_results,
+        'topics': topic_results,
+        'subtopics': subtopic_results,
+        'projects': project_results,
         'query': query,
     }
     return render(request, 'search.html', context)
@@ -200,7 +216,7 @@ class SubTopicDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.Delete
         return self.request.user.is_superuser
 
     def get_success_url(self):
-        return reverse('subtopic', kwargs={'pk': self.kwargs['pk']})
+        return reverse('topic', kwargs={'pk': self.kwargs['topic_id']})
 
 
 class ProjectCreateView(LoginRequiredMixin, UserPassesTestMixin, generic.CreateView):

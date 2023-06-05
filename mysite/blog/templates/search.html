@@ -1,19 +1,37 @@
 {% extends "base.html" %}
 
-{% block "title" %} Paieskos rezultatai {% endblock %}
+{% block "title" %} Search results {% endblock %}
 
 {% block "content" %}
-{% if topic %}
-<h1>Paieskos pagal "{{ query }}" rezultatai</h1>
-<br>
-
-{% for topic in topics %}
-<a href="{% url 'topic' topics.pk %}">
-    <p>{{ topic }}</p>
-</a>
-<hr>
-{% endfor%}
+{% if not topics and not subtopics and not projects %}
+    <h1 class="text-danger">No results found</h1>
 {% else %}
-<h1>Rezultatu pagal uzklausu '{{ query }}' nera</h1>
+    <h1>Search results for "{{ query }}" </h1>
+    {% if topics %}
+        <h2>Topic</h2>
+            <ul>
+                {% for topic in topics %}
+                    <li><a href="{% url 'topic' topic.pk %}">{{ topic.topic_name  }}</a></li>
+                {% endfor%}
+            </ul>
+    {% endif %}
+
+    {% if subtopics %}
+        <h2>SubTopic</h2>
+            <ul>
+                {% for subtopic in subtopics %}
+                    <li><a href="{% url 'subtopic' subtopic.topic.pk subtopic.pk %}">{{ subtopic }}</a></li>
+                {% endfor%}
+            </ul>
+    {% endif %}
+
+    {% if projects %}
+        <h2> Project </h2>
+            <ul>
+                {% for project in projects %}
+                    <li><a href="{% url 'project' project.pk %}">{{ project }}</a></li>
+                {% endfor%}
+            </ul>
+    {% endif %}
 {% endif %}
 {% endblock %}
