@@ -3,22 +3,30 @@
 {% block "title" %} Project {% endblock %}
 
 {% block "content" %}
-
-<h1>Project</h1>
-<ul>
-    <li><strong> Title: </strong> {{ project.title}}</li>
-    {% if project.started %}
-    <li><strong> Started: </strong> {{ project.started}}</li>
-    {% endif %}
-    {% if project.finished %}
-    <li><strong> Finished: </strong> {{ project.finished}}</li>
-    {% endif %}
-    <li><strong> Idea by: </strong> {{ project.get_by_display }}</li>
-    <li><strong> Project status: </strong> {{ project.get_status_display }}</li>
-
-</ul>
-<p>{{project.short_summary | safe}}</p>
-<p>{{project.description | safe}}</p>
-<h2></h2>
-
+  <div class="container">
+    <div class="card mt-3">
+      <div class="card-body">
+        <h1 class="card-title">{{ project.title }}</h1>
+        <ul class="list-unstyled">
+          {% if project.started %}
+            <li><strong>Started:</strong> {{ project.started }}</li>
+          {% endif %}
+          {% if project.finished %}
+            <li><strong>Finished:</strong> {{ project.finished }}</li>
+          {% endif %}
+          {% if project.by %}
+            <li><strong>Idea by:</strong> {{ project.get_by_display }}</li>
+          {% endif %}
+          {% if project.status %}
+            <li><strong>Project status:</strong> {{ project.get_status_display }}</li>
+          {% endif %}
+          {% if project.by_who %}
+            <li><a href="{{ project.by_who }}"><strong>Project source</strong></a></li>
+          {% endif %}
+        </ul>
+        <p class="card-text">{{ project.short_summary | safe }}</p>
+        <p class="card-text">{{ project.description | safe }}</p>
+      </div>
+    </div>
+  </div>
 {% endblock %}

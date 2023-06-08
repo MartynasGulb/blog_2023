@@ -3,3 +3,34 @@
     padding: 0;
     list-style: none;
 }
+:root {
+  /* Light Theme */
+  primary-color: #007bff;
+  background-color: #f8f9fa;
+  text-color: #333;
+
+  /* Dark Theme */
+  primary-color-dark: #212529;
+  background-color-dark: #343a40;
+  text-color-dark: #f8f9fa;
+}
+
+/* Light Theme Styles */
+body.light-theme {
+  primary-color: #007bff;
+  background-color: #f8f9fa;
+  text-color: #333;
+}
+
+/* Dark Theme Styles */
+body.dark-theme {
+  primary-color: #212529;
+  background-color: #343a40;
+  text-color: #f8f9fa;
+}
+
+/* Common Styles */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
