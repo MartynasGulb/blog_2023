@@ -9,4 +9,8 @@
         <p>{{ subtopic.summary }}</p>
     </span>
 </div>
+<div class="ml-3">
+    <a class="btn btn-secondary btn-sm" href="{% url 'subtopic_update' subtopic.topic.pk subtopic.pk %}">Up</a>
+    <a class="btn btn-danger btn-sm" href="{% url 'subtopic_delete' subtopic.topic.pk subtopic.pk %}">X</a>
+</div>
 {% endblock %}

@@ -25,7 +25,11 @@
           {% endif %}
         </ul>
         <p class="card-text">{{ project.short_summary | safe }}</p>
-        <p class="card-text">{{ project.description | safe }}</p>
+        <pre class="card-text"><code class="pyhton"> {{ project.code | safe }}</code></pre>
+      <div>
+          <a class="btn btn-secondary btn-sm mr-1" href="{% url 'projects_update' project.id %}">Up</a>
+          <a class="btn btn-danger btn-sm" href="{% url 'projects_delete' project.id %}">X</a>
+        </div>
       </div>
     </div>
   </div>

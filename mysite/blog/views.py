@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Project, Topic, SubTopic
+from django.urls import reverse
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.views import generic
@@ -50,7 +51,7 @@ def search(request):
     topic_results = Topic.objects.filter(
         Q(topic_name__icontains=query) |
         Q(about__icontains=query)
-     )
+    )
     subtopic_results = SubTopic.objects.filter(
         Q(sub_topic_name__icontains=query) |
         Q(summary__icontains=query)
@@ -62,8 +63,7 @@ def search(request):
         Q(finished__icontains=query) |
         Q(description__icontains=query) |
         Q(by__icontains=query) |
-        Q(by_who__icontains=query) |
-        Q(status__iexact=query)
+        Q(by_who__icontains=query)
     )
     context = {
         'topics': topic_results,
@@ -184,12 +184,12 @@ class SubTopicCreateView(LoginRequiredMixin, generic.CreateView):
     def test_func(self):
         return self.request.user.is_superuser
 
-    def get_success_url(self):
-        return reverse('topic', kwargs={'pk': self.kwargs['topic_id']})
-
     def form_valid(self, form):
         form.instance.topic = Topic.objects.get(pk=self.kwargs['topic_id'])
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('topic', kwargs={'pk': self.kwargs['topic_id']})
 
 
 class SubTopicUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
@@ -201,11 +201,9 @@ class SubTopicUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.Update
         return self.request.user.is_superuser
 
     def get_success_url(self):
-        return reverse('topic', kwargs={'pk': self.kwargs['topic_id']})
+        return reverse('subtopic', kwargs={'topic_id': self.kwargs['topic_id'], 'pk': self.kwargs['pk']})
 
-    def form_valid(self, form):
-        form.instance.subtopic = SubTopic.objects.get(pk=self.kwargs['pk'])
-        return super().form_valid(form)
+
 
 
 class SubTopicDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
@@ -233,7 +231,6 @@ class ProjectUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateV
     model = Project
     template_name = 'projects_form.html'
     form_class = ProjectForm
-    success_url = '/blog/projects/'
 
     def form_valid(self, form):
         form.instance.project = Project.objects.get(pk=self.kwargs['pk'])
@@ -241,6 +238,9 @@ class ProjectUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateV
 
     def test_func(self):
         return self.request.user.is_superuser
+
+    def get_success_url(self):
+        return reverse('project', kwargs={'project_id': self.kwargs['pk']})
 
 
 class ProjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):

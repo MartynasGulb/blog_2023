@@ -16,7 +16,7 @@ class Topic(models.Model):
 
 class SubTopic(models.Model):
     sub_topic_name = models.CharField('Sub Topic', max_length=200, blank=True)
-    summary = models.CharField('Summary', max_length=2000, blank=True)
+    summary = models.CharField('Summary', max_length=3000, blank=True)
     topic = models.ForeignKey(to='Topic', verbose_name='Topic', on_delete=models.SET_NULL, null=True,
                               blank=True, related_name='subtopics')
 
@@ -32,7 +32,7 @@ class Project(models.Model):
     short_summary = models.TextField(verbose_name="Summary", max_length=1000, default='Short summary')
     started = models.DateField('Started', null=True, blank=True)
     finished = models.DateField('Finished', null=True, blank=True)
-    description = HTMLField(verbose_name='Description', max_length=2000, default='')
+    code = HTMLField(verbose_name='Description', max_length=4000, default='')
 
     CREATED_BY = (
         ('c', 'CodeAcademy'),

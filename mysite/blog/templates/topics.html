@@ -10,15 +10,11 @@
 <div class="card mt-3">
     <div class="card-body d-flex justify-content-between align-items-center">
         <h5 class="card-title"><a href="{% url 'topic' topic.id %} "><p>{{ topic }}</a></h5>
-        <div>
-            <a class="btn btn-secondary btn-sm mr-1" href="{% url 'topic_update' topic.id  %}">Up</a>
-            <a class="btn btn-danger btn-sm" href="{% url 'topic_delete' topic.id   %}">X</a>
-        </div>
     </div>
 </div>
 {% endfor %}
 <br>
-
+<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'topics_new' %}">New topic</a>
 
 <div class="container mt-3">
     {% if is_paginated %}
@@ -62,5 +58,4 @@
 
       </div>
 </div>
-<a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'topics_new' %}">New topic</a>
 {% endblock%}
