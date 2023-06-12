@@ -3,34 +3,46 @@
 {% block "title" %} Project {% endblock %}
 
 {% block "content" %}
-  <div class="container">
+<div class="container">
     <div class="card mt-3">
-      <div class="card-body">
-        <h1 class="card-title">{{ project.title }}</h1>
-        <ul class="list-unstyled">
-          {% if project.started %}
-            <li><strong>Started:</strong> {{ project.started }}</li>
-          {% endif %}
-          {% if project.finished %}
-            <li><strong>Finished:</strong> {{ project.finished }}</li>
-          {% endif %}
-          {% if project.by %}
-            <li><strong>Idea by:</strong> {{ project.get_by_display }}</li>
-          {% endif %}
-          {% if project.status %}
-            <li><strong>Project status:</strong> {{ project.get_status_display }}</li>
-          {% endif %}
-          {% if project.by_who %}
-            <li><a href="{{ project.by_who }}"><strong>Project source</strong></a></li>
-          {% endif %}
-        </ul>
-        <p class="card-text">{{ project.short_summary | safe }}</p>
-        <pre class="card-text"><code class="pyhton"> {{ project.code | safe }}</code></pre>
-      <div>
-          <a class="btn btn-secondary btn-sm mr-1" href="{% url 'projects_update' project.id %}">Up</a>
-          <a class="btn btn-danger btn-sm" href="{% url 'projects_delete' project.id %}">X</a>
+        <div class="card-body">
+            <h1 class="card-title">{{ project.title }}</h1>
+            <ul class="list-unstyled">
+                {% if project.started %}
+                <li><strong>Started:</strong> {{ project.started }}</li>
+                {% endif %}
+                {% if project.finished %}
+                <li><strong>Finished:</strong> {{ project.finished }}</li>
+                {% endif %}
+                {% if project.by %}
+                <li><strong>Idea by:</strong> {{ project.get_by_display }}</li>
+                {% endif %}
+                {% if project.status %}
+                <li><strong>Project status:</strong> {{ project.get_status_display }}</li>
+                {% endif %}
+                {% if project.by_who %}
+                <li><a href="{{ project.by_who }}"><strong>Project source</strong></a></li>
+                {% endif %}
+            </ul>
+            <p class="card-text">{{ project.short_summary | safe }}</p>
+            <p>
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+                        aria-expanded="true" aria-controls="collapseExample">
+                    Code
+                </button>
+            </p>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    <div class="container">
+                        <pre class="card-text"><code class="pyhton"> {{ project.code | safe }}</code></pre>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <a class="btn btn-secondary btn-sm mr-1" href="{% url 'projects_update' project.id %}">Up</a>
+                <a class="btn btn-danger btn-sm" href="{% url 'projects_delete' project.id %}">X</a>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 {% endblock %}

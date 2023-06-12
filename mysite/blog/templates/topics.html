@@ -34,28 +34,5 @@
     {% endif %}
 </div>
 
-<p>
-  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
-    Topic list
-  </button>
-</p>
-<div class="collapse" id="collapseExample">
-  <div class="card card-body">
-    <div class="container">
-    {% for topic in topics %}
-    <div>
-        <h3 class="card-title"><a href="{% url 'topic' topic.id %} "><p>{{ topic }}</a></h3>
-        <ul>
-            {% for subtopic in topic.subtopics.all %}
-            <li>
-                <a href="{% url 'subtopic' topic.pk subtopic.id %}">{{ subtopic.sub_topic_name }}</a>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-    {% endfor %}
-</div>
 
-      </div>
-</div>
 {% endblock%}
