@@ -32,7 +32,7 @@ class Project(models.Model):
     short_summary = models.TextField(verbose_name="Summary", max_length=1000, default='Short summary')
     started = models.DateField('Started', null=True, blank=True)
     finished = models.DateField('Finished', null=True, blank=True)
-    code = HTMLField(verbose_name='Description', max_length=4000, default='')
+    code = HTMLField(verbose_name='Description', max_length=4000, default='', blank=True, null=True)
 
     CREATED_BY = (
         ('c', 'CodeAcademy'),
