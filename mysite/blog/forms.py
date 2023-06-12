@@ -24,8 +24,8 @@ class DateInput(forms.DateInput):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['title', 'short_summary', 'code', 'by', 'by_who', 'status']
-        widgets = {('started', 'finished'): DateInput()}
+        fields = ['title', 'short_summary', 'code', 'by', 'by_who', 'status', 'git', 'started', 'finished']
+        widgets = {'started': DateInput(), 'finished': DateInput()}
 
 
 class TopicForm(forms.ModelForm):

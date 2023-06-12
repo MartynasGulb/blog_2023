@@ -8,7 +8,7 @@
         <div class="card-body">
             <h1 class="card-title">{{ topic }}</h1>
             <span>
-            <p>{{ topic.about }}</p>
+            <p>{{ topic.about | safe }}</p>
         </span>
             <ul class="list-unstyled">
                 {% for subtopic in topic.subtopics.all %}

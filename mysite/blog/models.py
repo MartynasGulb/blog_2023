@@ -7,7 +7,7 @@ from tinymce.models import HTMLField
 
 class Topic(models.Model):
     topic_name = models.CharField('Topic', max_length=200, blank=True)
-    about = models.TextField('About',  blank=True)
+    about = HTMLField('About',  blank=True)
     project = models.ManyToManyField(to='Project', verbose_name='project', blank=True)
 
     def __str__(self):
@@ -16,7 +16,7 @@ class Topic(models.Model):
 
 class SubTopic(models.Model):
     sub_topic_name = models.CharField('Sub Topic', max_length=200, blank=True)
-    summary = models.TextField('Summary', blank=True)
+    summary = HTMLField('Summary', blank=True)
     topic = models.ForeignKey(to='Topic', verbose_name='Topic', on_delete=models.SET_NULL, null=True,
                               blank=True, related_name='subtopics')
 
@@ -48,7 +48,7 @@ class Project(models.Model):
     by = models.CharField(verbose_name='Idea by', max_length=2, choices=CREATED_BY, blank=True)
     by_who = models.URLField(verbose_name='source', blank=True)
     status = models.CharField(verbose_name='State', max_length=2, choices=PROJECT_STATUS, blank=True, default='i')
-
+    git = models.URLField(verbose_name='link', blank=True, null=True)
     def __str__(self):
         return self.title
 
