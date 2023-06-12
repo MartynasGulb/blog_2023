@@ -10,8 +10,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/default.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
@@ -45,6 +47,9 @@
                 </li>
                 <li>
                     <a class="nav-link" href="{% url 'topics'%}">Topics</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="{% url 'try_it'%}">Try it</a>
                 </li>
                 {% if user.is_authenticated %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'profile'%}">
@@ -94,7 +99,19 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
-
+<script type="text/javascript">
+	function runCode()
+	{
+		var content = document.getElementById('sourceCode').value;
+		var iframe = document.getElementById('targetCode');
+		iframe = (iframe.contentWindow) ? iframe.contentWindow : (iframe.contentDocument.document) ? iframe.contentDocument.document : iframe.contentDocument;
+		iframe.document.open();
+		iframe.document.write(content);
+		iframe.document.close();
+		return false;
+	}
+	runCode();
+</script>
 <div class="mt-5 p-4 bg-grey text-black text-center">
     <p> © {% now 'Y'%} Martynas Gulbinavicius </p>
 </div>

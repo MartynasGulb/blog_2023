@@ -35,6 +35,10 @@ body {
   color: var(--text-color);
 }
 
-
+textarea, iframe {
+ border: 2px solid #ddd;
+ height: 500px;
+ width: 100%;
+}
 
 

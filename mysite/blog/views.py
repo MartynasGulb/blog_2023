@@ -14,6 +14,10 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 # from django.contrib.auth.forms import User
 # from django.views.decorators.csrf import csrf_protect
 
+
+def try_it(request):
+    return render(request, 'try_it.html')
+
 def index(request):
     num_projects = Project.objects.filter(status__exact='f').count()
     num_topics = Topic.objects.all().count()

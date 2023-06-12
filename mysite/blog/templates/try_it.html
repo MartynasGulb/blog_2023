@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block "title" %} Home {% endblock %}
+
+{% block "content" %}
+<h3>Here you can try to execute some code</h3>
+<p>Right now you can try to run HTML/CSS/JS:</p>
+
+<table width="100%" border="0" cellspacing="5" cellpadding="5">
+    <tr>
+        <td width="50%" scope="col">&nbsp;</td>
+        <td width="50%" align="left" scope="col">
+            <input onclick="runCode();" type="button" value="Run Code">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <form>
+                <strong>Code</strong>
+                <textarea name="sourceCode" id="sourceCode">
+<html>
+<head>
+<title>Hello</title>
+</head>
+<body>
+<h1>Hello!</h1>
+<p>Write HTML, CSS or JavaScript code here and click 'Run Code'.</p>
+</body>
+</html>
+                </textarea>
+            </form>
+        </td>
+        <td><strong>Output</strong>
+            <iframe name="targetCode" id="targetCode"></iframe>
+        </td>
+    </tr>
+</table>
+<p> Python code compiler coming soon </p>
+<py-repl id="my-repl"  auto-generate="true"> </py-repl>
+{% endblock %}
