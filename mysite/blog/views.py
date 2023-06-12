@@ -204,8 +204,6 @@ class SubTopicUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.Update
         return reverse('subtopic', kwargs={'topic_id': self.kwargs['topic_id'], 'pk': self.kwargs['pk']})
 
 
-
-
 class SubTopicDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView):
     model = SubTopic
     template_name = 'subtopics_delete.html'
