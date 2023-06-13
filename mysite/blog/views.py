@@ -66,7 +66,7 @@ def search(request):
         Q(short_summary__icontains=query) |
         Q(started__icontains=query) |
         Q(finished__icontains=query) |
-        Q(description__icontains=query) |
+        Q(code__icontains=query) |
         Q(by__icontains=query) |
         Q(by_who__icontains=query)
     )
